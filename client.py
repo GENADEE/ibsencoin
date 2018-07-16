@@ -11,4 +11,3 @@ import json
 def create_transaction(inputs, n_output_groups, v_output_groups, output_group, timeout):
   return json.dump([inputs, n_output_groups, v_output_groups, output_group, timeout])
 
-

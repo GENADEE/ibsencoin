@@ -7,6 +7,10 @@ Design:
   - IbsenCoins are transferred by being reminted into new IbsenCoins under the control of the new owner. 
   - IbsenCoins are reminted in batches. Remint orders for all new coins are signed by all old coins in the batch, so it is impossible to tell which coin they came from. 
 
+Dependencies:
+
+| pip install rsa
+
 Transaction format:
 
 - Once a sender has found a group of n senders each sending value v, each sender creates a transaction, which lists the inputs of all of the senders, the values of n and v, and the outputs for this particular sender, along with a timestamp at which the transaction expires. 
