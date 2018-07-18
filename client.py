@@ -9,5 +9,5 @@ import json
 #output_group: lists the outputs to this part of this transaction; the form is a list of tuples of the format (value, pkey).
 #timeout: unix time after which the transaction becomes invalid if it has not been confirmed. 
 def create_transaction(inputs, n_output_groups, v_output_groups, output_group, timeout):
-  return json.dump([inputs, n_output_groups, v_output_groups, output_group, timeout])
+  return json.dumps({'inputs': inputs, 'n': n_output_groups, 'v': v_output_groups, 'outputs': output_group, 'timeout': timeout})
 
