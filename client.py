@@ -11,3 +11,23 @@ import json
 def create_transaction(inputs, n_output_groups, v_output_groups, output_group, timeout):
   return json.dumps({'inputs': inputs, 'n': n_output_groups, 'v': v_output_groups, 'outputs': output_group, 'timeout': timeout})
 
+def create_transaction_blinds(transaction):
+  otransaction = json.loads(transaction)
+  m = digest(transaction) 
+  blinds = []
+  for i in otransaction['inputs']:
+    key = rsa.PublicKey(i['key']['n'],i['key']['e'])
+    r = 0
+    blind = 0  
+    while blind  == 0:
+      r = random.randrange(3*2^4094, 2^4096)
+      blind = key.blind(m,r)
+    blinds += [['input': i, 'r': r, 'blind': blind]]
+  return blinds
+
+
+def digest(msg):
+  h = hashlib.sha512()
+  h.update(bytes(msg, 'utf-8'))
+  return int.from_bytes(h.digest(), byteorder='big')
+
