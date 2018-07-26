@@ -39,11 +39,16 @@ def digest(msg):
 
 #where pkey is an rsa.PrivateKey
 def sign_blind(pkey, blind):
-  return rsa.core.decrypt_int(blind, pkey.d, pkey.n)
+  return rsa.core.decrypt_int(blind, pkey.d, pkey.n) #uses the rsa private key to sign the blind signature.
 
+#unblinds blind signature "signature" that has been signed with the private key associuated with key and blinded with the key "key" and the random factor r.  
+def unblind_signature(key, signature, r):
+  return key.unblind(signature, r)
+
+#checks whether the signature matches the hash of the transaction once unblinded. 
 def verify_blind_signature(transaction, key, r, signature):
   m = digest(transaction)
-  m1 = rsa.core.encrypt_int(key.unblind(signature, r), key.e, key.n)
+  m1 = rsa.core.encrypt_int(unblind_signature(key, signature, r), key.e, key.n)
   return m == m1
   
 
