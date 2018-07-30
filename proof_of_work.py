@@ -11,6 +11,7 @@ import random
 # difficulty is the number of bits that are all zero
 def verify_pow(block_str,difficulty):
     test = int.from_byte(scrypt.hash(block_str,""), byteorder='big')
+    print("test is " + str(test)) #debug
     return test <= 2**((64*8)-difficulty)-1
 
 # we'll see about this method
@@ -23,8 +24,11 @@ def verify_pow(block_str,difficulty):
 
 # mine until it's solved
 def pow(block_str,difficulty):
-    for i in range(1,2**32):
+    i = 0
+    while True:
+        i += 1
         value = block_str + str(int.to_bytes(i,byteorder='big'),'utf-8') #pow_step(block_str,difficulty)
+        print("intermediate value is " + str(value))
 
         if verify_pow(value,difficulty):
             return value # new block string
