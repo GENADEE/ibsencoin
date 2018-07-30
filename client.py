@@ -45,7 +45,7 @@ def sign_blind(pkey, blind):
 def unblind_signature(key, signature, r):
   return key.unblind(signature, r)
 
-#checks whether the signature matches the hash of the transaction once unblinded. 
+#checks whether the signature is valid for the hash of the transaction once unblinded. 
 def verify_blind_signature(transaction, key, r, signature):
   m = digest(transaction)
   m1 = rsa.core.encrypt_int(unblind_signature(key, signature, r), key.e, key.n)
