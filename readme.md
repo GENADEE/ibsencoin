@@ -10,6 +10,7 @@ Design:
 Dependencies:
 
 | pip install rsa
+| pip install scrypt
 
 Transaction format:
 
@@ -20,3 +21,5 @@ Transaction format:
 - Each sender then sends his signed transaction to a node, hopefully masking his IP using onion or garlic routing. 
 - Nodes relay transactions to each other. 
 - A node confirms a transaction is valid if: the node has n different transactions from the same input, all unexpired, signed by all of the inputs, and with total output value of v, where all the inputs are valid and unspent, and the total value of the inputs > n * v. The node groups them into one transaction and adds it to the blockchain.
+
+We will be adding installers for osx, linux, and windows once a prototype is finished.
