@@ -5,8 +5,7 @@ class Block:
         self.previous = previous
         self.transactions_list = transactions_list
         pass
-    def jesonize():
-        return json.dumps(self)
+
     def serialize():
-        pass
+        return str(self.previous) + "," + str(self.transactions_list)
     pass
