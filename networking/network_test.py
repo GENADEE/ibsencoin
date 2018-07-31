@@ -3,6 +3,7 @@
 
 import socket
 
+'''
 HOST, PORT = '', 8888
 
 # AF_INET is better because AF_UNIX uses a file on your system or something wierd
@@ -11,7 +12,8 @@ listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 listen_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 listen_socket.bind((HOST, PORT))
-listen_socket.listen(1)
+listen_socket.listen(5)
+
 print 'Serving HTTP on port %s ...' % PORT
 while True:
     client_connection, client_address = listen_socket.accept()
@@ -28,3 +30,30 @@ Hello, World!
 
 # ^^^ this works fine
 
+'''
+# most of the following is from 
+# https://www.tutorialspoint.com/python/python_networking.htm
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+host = socket.gethostname() # Get local machine name
+print host
+port = 8887                # Reserve a port for your service.
+sock.bind((host, port))        # Bind to the port
+
+sock.listen(5)                 # Now wait for client connection.
+while True:
+   connec, addr = sock.accept()     # Establish connection with client.
+   print 'Got connection from', addr
+   connec.send('Thank you for connecting') #this doesn't work for browser, etcetera... but does work for client
+   connec.close()                # Close the connection
+
+'''
+### CLIENT CODE
+s = socket.socket()         # Create a socket object
+host = socket.gethostname() # Get local machine name
+port = 12345                # Reserve a port for your service.
+
+s.connect((host, port))
+print s.recv(1024)
+s.close                     # Close the socket when done
+'''
