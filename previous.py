@@ -5,7 +5,7 @@ import json
 class Previous:
     #previous is a pointer or reference or whatever python uses
     #unimplemented because the previous block doesn't have serialize method yet
-    def from_pointer(previous):
+    def from_pointer(self,previous):
         self.previous = previous
         self.hash = "hi my name is jeff" # change this to be hashed from the pointer
         pass
@@ -14,6 +14,6 @@ class Previous:
         self.hash = hash
         pass
     
-    def __str__():
+    def __str__(self):
         return self.hash #already a string remember
     pass
