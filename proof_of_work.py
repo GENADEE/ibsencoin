@@ -1,7 +1,11 @@
 import hashlib
-import scrypt
 import random
 
+#sha512 hash as int.
+def digest(msg):
+    h = hashlib.sha512()
+    h.update(bytes(msg, 'utf-8'))
+    return int.from_bytes(h.digest(), byteorder='big')
 # some nonce
 # the block has already had the new elements appended
 # block is already serialized as a string
@@ -10,9 +14,9 @@ import random
 #
 # difficulty is the number of bits that are all zero
 def verify_pow(block_str,difficulty):
-    test = int.from_byte(scrypt.hash(block_str,""), byteorder='big')
-    print("test is " + str(test)) #debug
-    return test <= 2**((64*8)-difficulty)-1
+    test = digest(block_str)
+    print("test is {:0128x}".format(test)) #debug
+    return test <= 2**((512)-difficulty)-1
 
 # we'll see about this method
 # mining (append the proof of work)
@@ -27,7 +31,7 @@ def pow(block_str,difficulty):
     i = 0
     while True:
         i += 1
-        value = block_str + str(int.to_bytes(i,byteorder='big'),'utf-8') #pow_step(block_str,difficulty)
+        value = block_str + str(int.to_bytes(4, i,byteorder='big'),'utf-8') #pow_step(block_str,difficulty)
         print("intermediate value is " + str(value))
 
         if verify_pow(value,difficulty):
