@@ -54,7 +54,7 @@ def verify_blind_signature(transaction, key, r, signature):
   return m == m1
   
 class wallet:
-  def __init__(self, keyfile_name, node_connection, bulletin_connection, backupdir=None, swapdir=None):
+  def __init__(self, keyfile_name, pool_request, post_transaction, get_value, listen, backupdir=None, swapdir=None):
     self.keyfile_name = keyfile_name
     self.backupdir=backupdir
     self.swapdir=swapdir
