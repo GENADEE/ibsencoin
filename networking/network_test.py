@@ -1,5 +1,5 @@
 # this is from a tutorial
-#
+# OK I'LL USE THE HTTP SERVER AFTER I FINISH PRIMITIVE SERVER AND CLIENT USING RAW TCP
 
 import socket
 
