@@ -1,1 +1,1 @@
-{firstnode:{'address':2600:1702:a20:6920:2c69:31ad:3cb2:daa7,'port':8886}}
+{firstnode:{'address':dontminbitcoins.attlocal.net,'port':8886}}
