@@ -23,3 +23,5 @@ Transaction format:
 - A node confirms a transaction is valid if: the node has n different transactions from the same input, all unexpired, signed by all of the inputs, and with total output value of v, where all the inputs are valid and unspent, and the total value of the inputs > n * v. The node groups them into one transaction and adds it to the blockchain.
 
 We will be adding installers for osx, linux, and windows once a prototype is finished.
+
+CURRENT WORK IS GOING ON IN OOPS.   Master is a slightly older version than what we have right now.
