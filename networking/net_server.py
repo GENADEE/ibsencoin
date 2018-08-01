@@ -44,3 +44,6 @@ def verify_transaction():
     return 'verifying'
 
 print 'end'
+
+
+# ok, so the easiest way to do this will be to run a flask server for our nodes and then have the clients send requests
