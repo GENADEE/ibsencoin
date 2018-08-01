@@ -2,6 +2,8 @@ import rsa
 import json
 import hashlib
 import random
+import os
+import serialization
 
 #creates an unsigned transaction.
 #params:
@@ -51,5 +53,40 @@ def verify_blind_signature(transaction, key, r, signature):
   m1 = rsa.core.encrypt_int(unblind_signature(key, signature, r), key.e, key.n)
   return m == m1
   
+class wallet:
+  def __init__(self, keyfile_name, node_connection, bulletin_connection, backupdir=None, swapdir=None):
+    self.keyfile_name = keyfile_name
+    self.backupdir=backupdir
+    self.swapdir=swapdir
+    if self.backupdir==None:
+      if os.path.dirname(keyfile_name)=="":
+        self.backupdir="."
+      else:
+        self.backupdir=os.path.dirname(keyfile_name)
+    if self.swapdir==None:
+      if os.path.dirname(keyfile_name)=="":
+        self.swapdir="."
+      else:
+        self.swapdir=os.path.dirname(keyfile_name)
+    self.from_file(keyfile_name)
+
+  #creates entry list from keyfile
+  def from_file(self, keyfile_name):
+    self.entries = []
+    try:
+      with open(keyfile_name) as f:
+        for entry in f:
+          self.entries += [serialization.decode(entry)] 
+    except IOError:
+      pass
+  
+  #creates n new keys and adds them as empty addresses.
+  def gen_keys(self, n):
+    for i in range(n):
+      key, pk = rsa.newkeys(1024)
+      self.entries += [(pk, None, 0)]
+  
 
 
+  
+  
