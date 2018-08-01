@@ -1,1 +1,0 @@
-{firstnode:{'address':dontminbitcoins.attlocal.net,'port':8886}}
