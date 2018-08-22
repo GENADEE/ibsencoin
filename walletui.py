@@ -1,6 +1,6 @@
 import client
 
-wallet = client.wallet("wallet.dat", None, None)
+wallet = client.wallet("wallet.dat", None, None, None, None)
 while True:
   command = input()
   if command=="coins":
