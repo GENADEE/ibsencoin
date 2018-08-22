@@ -17,7 +17,7 @@ class Net_Server:
         # default server will have only one socket because ok doke
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         host = socket.gethostname()
-        port = 8860 # later change from hardcode because you get address already in use errors
+        port = 8862 # later change from hardcode because you get address already in use errors
         sock.bind((host, port)) 
 
         self.sockets = { 'main' :  sock }
@@ -29,6 +29,7 @@ class Net_Server:
             #print sock
             sock.listen(5)
             while True:
+                print 'hi'
                 connec, addr = sock.accept()
                 print 'Got connection from', addr
                 connec.send('Thank you for connecting')
