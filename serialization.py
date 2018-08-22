@@ -57,6 +57,9 @@ class Entry:
       pkey, data = PrivateKey.deserialize(data[1:])
       output, data = Output.deserialize(data)
       return (Entry(pkey, output), data)
+  @property
+  def value(self):
+    return (self.output or 0) and self.output.value
 
 class Transaction_hashref:
   def __init__(self, thash):
@@ -72,16 +75,16 @@ class Transaction_hashref:
 
 
 class PublicKey:
-  def __init__(self, n, e):
-    self.key = rsa.PublicKey(n, e)
+  def __init__(self, key):
+    self.key = key
   def serialize(self):
     return bytes.fromhex('01') + self.key.n.to_bytes(128, byteorder = 'big') + self.key.e.to_bytes(8, byteorder = 'big')
   def deserialize(data):
     return (PublicKey(int.from_bytes(data[1:129], byteorder = 'big'), int.from_bytes(data[129:137], byteorder = 'big')), data[137:]) if data[0] else (None, data[1:])
 
 class PrivateKey: 
-  def __init__(self, n, e, d, p, q):
-    self.pkey = rsa.pkey
+  def __init__(self, pkey):
+    self.pkey = pkey
   def serialize(self):
     return bytes.fromhex('01') + self.pkey.n.to_bytes(128, byteorder = 'big') + self.key.e.to_bytes(8, byteorder = 'big') + self.pkey.d.to_bytes(128, byteorder = 'big') + self.pkey.p.to_bytes(64, byteorder = 'big') + self.pkey.q.to_bytes(64, byteorder = 'big')
   def deserialize(data):

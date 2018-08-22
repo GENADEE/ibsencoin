@@ -72,10 +72,11 @@ class wallet:
 
   #creates entry list from keyfile
   def from_file(self, keyfile_name):
+    self.entries = []
     try:
       with open(keyfile_name, 'rb') as f:
         data = f.read()
-      self.entries = serialization.listDeserialize(data, Entry.deserialize)  
+      self.entries += serialization.listDeserialize(data, Entry.deserialize)  
     except IOError:
       pass
 
@@ -85,16 +86,9 @@ class wallet:
   def gen_keys(self, n):
     for i in range(n):
       key, pk = rsa.newkeys(1024)
-      self.entries += [[pk, None, 0)]]
+      self.entries += [serialization.Entry(serialization.PrivateKey(pk), None)]
   
 
-  #unimplemented
-  def update():
-    for entry in entries:
-      key = rsa.PublicKey(entry[0].n, entry[0].e)
-      def change_entry(uo):
-        pass
-      get_value(key,change_entry)
 
 
 
