@@ -20,3 +20,8 @@ tags
 # Persistent undo
 [._]*.un~
 .DS_Store
+
+# App data
+
+*.dat
+

@@ -76,11 +76,18 @@ class wallet:
     try:
       with open(keyfile_name, 'rb') as f:
         data = f.read()
-      self.entries += serialization.listDeserialize(data, Entry.deserialize)  
+      self.entries += serialization.listDeserialize(data, serialization.Entry.deserialize)  
     except IOError:
       pass
 
-  
+  def to_file(self, keyfile_name):
+    try:
+      with open(keyfile_name, 'wb') as f:
+        f.seek(0,0)
+        f.write(serialization.listSerialize(self.entries))
+    except IOError:
+      pass
+
   
   #creates n new keys and adds them as empty addresses.
   def gen_keys(self, n):

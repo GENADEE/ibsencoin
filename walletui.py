@@ -23,6 +23,9 @@ while True:
       print("Please try again and specify the number of keys to generate.")
   elif command=="exit":
     break
+  elif command=="save":
+    wallet.to_file(wallet.keyfile_name)
+    print("Done")
   else:
     print("invalid command.")
     

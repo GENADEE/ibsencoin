@@ -12,9 +12,9 @@ def decode(code):
   return json.loads(code)
 
 def listSerialize(l):
-  r = bytes(1) + int.to_bytes(8, len(l))
+  r = bytes.fromhex('01') + len(l).to_bytes(8, byteorder = 'big')
   for i in l:
-    r += l.serialize()
+    r += i.serialize()
   return r
 
 def listDeserialize(data, deserialize):
@@ -80,12 +80,12 @@ class PublicKey:
   def serialize(self):
     return bytes.fromhex('01') + self.key.n.to_bytes(128, byteorder = 'big') + self.key.e.to_bytes(8, byteorder = 'big')
   def deserialize(data):
-    return (PublicKey(int.from_bytes(data[1:129], byteorder = 'big'), int.from_bytes(data[129:137], byteorder = 'big')), data[137:]) if data[0] else (None, data[1:])
+    return (PublicKey(rsa.PublicKey(int.from_bytes(data[1:129], byteorder = 'big'), int.from_bytes(data[129:137], byteorder = 'big'))), data[137:]) if data[0] else (None, data[1:])
 
 class PrivateKey: 
   def __init__(self, pkey):
     self.pkey = pkey
   def serialize(self):
-    return bytes.fromhex('01') + self.pkey.n.to_bytes(128, byteorder = 'big') + self.key.e.to_bytes(8, byteorder = 'big') + self.pkey.d.to_bytes(128, byteorder = 'big') + self.pkey.p.to_bytes(64, byteorder = 'big') + self.pkey.q.to_bytes(64, byteorder = 'big')
+    return bytes.fromhex('01') + self.pkey.n.to_bytes(128, byteorder = 'big') + self.pkey.e.to_bytes(8, byteorder = 'big') + self.pkey.d.to_bytes(128, byteorder = 'big') + self.pkey.p.to_bytes(96, byteorder = 'big') + self.pkey.q.to_bytes(96, byteorder = 'big')
   def deserialize(data):
-    return (PrivateKey(int.from_bytes(data[1:129], byteorder = 'big'), int.from_bytes(data[129:137], byteorder = 'big'), int.from_bytes(data[137:265], byteorder = 'big'), int.from_bytes(data[265:329], byteorder = 'big'), int.from_bytes(data[329:393], byteorder = 'big')), data[393:]) if data[0] else (None, data[1:])
+    return (PrivateKey(rsa.PrivateKey(int.from_bytes(data[1:129], byteorder = 'big'), int.from_bytes(data[129:137], byteorder = 'big'), int.from_bytes(data[137:265], byteorder = 'big'), int.from_bytes(data[265:361], byteorder = 'big'), int.from_bytes(data[361:457], byteorder = 'big'))), data[457:]) if data[0] else (None, data[1:])
